@@ -1,0 +1,15 @@
+<head>
+  <title>TheMovie</title>
+</head>
+
+<body>
+{{> home}}
+</body>
+
+<template name="home">
+  <h1>Movies List</h1>
+  {{#each movies}}
+  <h3>{{title}}</h3>
+  <li>{{overview}}</li>
+  {{/each }}
+</template>
