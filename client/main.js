@@ -8,8 +8,9 @@ Template.home.onCreated(function homeOnCreated() {
   this.movies = new ReactiveVar();
   HTTP.call('GET', 'http://localhost:3000/api/discover/movie', {},
       function(error, response) {
-// Handle the error or response here.
-        ctrl.movies.set(JSON.parse(response.content).results)
+        // Handle the error or response here.
+          ctrl.movies.set(JSON.parse(JSON.parse(response.content).content).results);
+          console.log(JSON.parse(JSON.parse(response.content).content).results)
       });
 });
 Template.home.helpers({
