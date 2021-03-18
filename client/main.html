@@ -1,5 +1,6 @@
 <head>
   <title>TheMovie</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 </head>
 
 <body>
@@ -9,7 +10,17 @@
 <template name="home">
   <h1>Movies List</h1>
   {{#each movies}}
-  <h3>{{title}}</h3>
-  <li>{{overview}}</li>
+    <div class="flex full-width justify-between mx-1 p-0">
+      <div class="col-2">
+        <img src="https://image.tmdb.org/t/p/w300{{poster_path}}">
+      </div>
+      <div class="flex flex-column col-7 p-0">
+        <h3>{{title}}</h3>
+        <li>{{overview}}</li>
+      </div>
+    </div>
   {{/each }}
+
+
+
 </template>
