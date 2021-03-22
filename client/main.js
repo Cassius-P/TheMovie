@@ -35,7 +35,7 @@ function likeFilm(button){
 
     let id = button.dataset.id
     console.log(id)
-    HTTP.call('POST', "http://localhost:3000/api/like/"+id,{}, (error, response)=>{
+    HTTP.call('PUT', "http://localhost:3000/api/like/"+id,{}, (error, response)=>{
         console.log("fn",response.content)
         console.log(button.children)
         if(response.content == "liked"){
