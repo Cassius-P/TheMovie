@@ -1,26 +1,73 @@
+
 <head>
   <title>TheMovie</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <script src="script.js"></script>
 </head>
 
-<body>
+<body class="bg-secondary">
 {{> home}}
+
+
 </body>
 
-<template name="home">
-  <h1>Movies List</h1>
-  {{#each movies}}
-    <div class="flex full-width justify-between mx-1 p-0">
-      <div class="col-2">
-        <img src="https://image.tmdb.org/t/p/w300{{poster_path}}">
-      </div>
-      <div class="flex flex-column col-7 p-0">
-        <h3>{{title}}</h3>
-        <li>{{overview}}</li>
+
+<template name="home" >
+  <div class="px-2 d-flex flex-column">
+    <h1>Movies List</h1>
+    {{> search}}
+    <section class="w-100 d-flex flex-column justify-center">
+      {{#each movies}}
+        <div class="w-100 my-3 p-0 d-flex justify-content-center ">
+          <div class="d-flex w-50 rounded bg-dark py-4 px-2 shadow-lg position-relative">
+            <div class="col-4">
+              <img src="https://image.tmdb.org/t/p/w300{{poster_path}}" class="rounded">
+            </div>
+            <div class="flex flex-column p-0 text-light">
+              <h3>{{title}}</h3>
+              <li>{{overview}}</li>
+
+            </div>
+            <div class="position-absolute right-end m-2 ">
+              <div class ="text-light d-flex position-relative">
+
+                <button type="button" class="btn btn-outline-light likeButton" data-id="{{id}}" data-action="likeFilm">
+                  {{#if liked}}
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill h-100 " viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+                  </svg>
+                  {{else}}
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart h-100 " viewBox="0 0 16 16">
+                    <path d="M8 2.748l-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+                  </svg>
+                  {{/if}}
+                  <span>{{vote_count}}</span>
+                </button>
+
+              </div>
+
+
+            </div>
+          </div>
+
+        </div>
+      {{/each }}
+    </section>
+
+  </div>
+</template>
+
+
+
+<template name="search">
+  <div class="w-100 d-flex justify-content-center">
+    <div class="w-50 position-relative">
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2 w-75" type="search" placeholder="Search" aria-label="Search" id="searchbar" autocomplete="false">
+        <button class="btn btn-outline-success my-2 my-sm-0 " type="submit">Search</button>
+      </form>
+      <div class="position-absolute d-flex flex-column w-100 bg-dark rounded-bottom shadow-lg" id="results" style="z-index: 50">
       </div>
     </div>
-  {{/each }}
-
-
-
+  </div>
 </template>

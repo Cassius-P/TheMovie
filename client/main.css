@@ -2,3 +2,11 @@ body {
   padding: 10px;
   font-family: sans-serif;
 }
+
+.result:hover{
+  background-color:#2f3338!important
+}
+.right-end{
+  bottom: 0;
+  right: 0;
+}
