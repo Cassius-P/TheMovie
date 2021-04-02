@@ -15,9 +15,10 @@ WebApp.connectHandlers.use('/api/discover/movie', (req, res, next) => {
     /*console.log(films)*/
     for (let i = 0; i < films.length; i++) {
         let find = Likes.find({idFilm: films[i].id.toString()})
-        console.log(films[i].title , find.count() != 0 ? 'was liked' : "wasn't liked")
+        //console.log(films[i].title , find.count())
         if (find.count() != 0){
-            films[i].likes = find.fetch().likes
+            console.log(find.fetch()[0].likes)
+            films[i].likes = find.fetch()[0].likes
         }else{
             films[i].likes = 0
         }
@@ -39,7 +40,7 @@ WebApp.connectHandlers.use(connectRoute(function (router) {
         let url = 'https://api.themoviedb.org/3/search/movie?api_key=8cce820f4a3f0e0254ff5512352682fe&language=fr-FR&page=1&include_adult=true&query='+content;
         console.log(url)
         let result = HTTP.call('GET', url, {})
-
+        console.log(result)
         res.end(JSON.stringify(result))
     });
 
@@ -47,21 +48,27 @@ WebApp.connectHandlers.use(connectRoute(function (router) {
     router.post('/api/like/:idMovie', (req, res, next) => {
         let result = "already liked"
         let id = req.params.idMovie;
-        let find = Likes.findOne({idFilm : id.toString()})
-        console.log(Likes.find({'idFilm' : id}).fetch())
+        console.log(req.params)
+        let find = Likes.find({idFilm : id.toString()})
+        console.log(find.count() == 0 ? "Need add" : "need update")
         if(find.count() == 0 && id != undefined && id != null){
-            let obj = find.fetch();
-            Likes.update({idFilm: id}, )
-
             let filmLiked = {
-                idFilm: id,
-                likes: true,
+                idFilm: id.toString(),
+                likes: 1,
             }
 
             Likes.insert(filmLiked)
-            result = "liked"
+            result = JSON.stringify(filmLiked)
+        }
+        else if(id != undefined || find.fetch().id != undefined && id != null){
+
+            console.log(find.fetch())
+            Likes.update({idFilm: id.toString()}, {$inc: {likes:1}} )
+            result = JSON.stringify(Likes.findOne({idFilm: id.toString()}))
+
         }
         res.end(result)
+
     })
 }))
 

@@ -1,19 +1,6 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     let searchBar = document.querySelector('#searchbar');
-    let likeB = document.getElementsByClassName('likeButton');
-    /*for (let i = 0; i < likeB.length; i++) {
-        console.log(likeB[i])
-        /!*likeB[i].addEventListener('click', ()=>{
-            //likeFilm(likeB[i].dataset.id)
-            console.log(this.dataset.id)
-        })*!/
-    }*/
-    /*console.log(likeB.length)
-    for (let i = 0; i < likeB.length; i++) {
-        console.log(likeB[i])
-    }*/
-    //console.log(likeB)
 
     searchBar.addEventListener('input', (e)=>{
         searchFilm(searchBar.value)
